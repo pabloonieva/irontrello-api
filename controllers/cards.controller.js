@@ -33,4 +33,9 @@ module.exports.update = (req, res, next) => {
 };
 
 module.exports.destroy = (req, res, next) => {
+   const cardId = req.params.id;
+
+   Card.findByIdAndRemove(cardId)
+   .then(card => res.status(204).json())
+   .catch(error => next(new ApiError(error.message, 404)));
 };

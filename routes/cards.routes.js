@@ -6,8 +6,8 @@ const secureMiddleware = require('../middleware/secure.middleware');
 router.get('/', cardsController.index);
 router.get('/:id', cardsController.show);
 router.post('/', cardsController.create);
-router.put('/:id', secureMiddleware.isAuthenticated, cardsController.update);
-router.delete('/:id', secureMiddleware.isAuthenticated, cardsController.destroy);
+router.put('/:id',  cardsController.update);
+router.delete('/:id', cardsController.destroy);
 
 module.exports = router;
 //secureMiddleware.isAuthenticated
