@@ -30,7 +30,17 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-};
+  const id = req.params.id;
+
+  Card.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+   .then(card => {
+     if (card) {
+       res.status(200).json(card);
+     } else {
+       next(new ApiError(`Card not found`, 404));
+     }
+   }).catch(error => next(error));
+ };
 
 module.exports.destroy = (req, res, next) => {
    const cardId = req.params.id;
