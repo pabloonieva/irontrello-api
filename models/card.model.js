@@ -5,11 +5,12 @@ const cardSchema = new mongoose.Schema({
     required: true
   },
   description: String,
-  due_date: Date,
+  due_date: String,
   position: Number,
   list: {
     type: String,
-    enum: ['ToDo', 'WorkInProgress', 'Done']
+    enum: ['ToDo', 'WorkInProgress', 'Done'],
+    default: 'ToDo'
   }
 });
 
