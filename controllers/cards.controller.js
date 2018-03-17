@@ -5,10 +5,15 @@ const ApiError = require('../models/api-error.model');
 module.exports.index = (req, res, next) => {
   Card.find()
   .then(cards =>  res.json(cards))
-  .catch(error => next(error));
+  .catch(error => next(new ApiError(error.message, 503)));
 };
 
 module.exports.show = (req, res, next) => {
+  const cardId = req.params.id;
+
+  Card.findById(cardId)
+    .then(card => res.json(card))
+    .catch(error => next(new ApiError(error.message, 404)));
 };
 
 module.exports.create = (req, res, next) => {
@@ -21,7 +26,7 @@ module.exports.create = (req, res, next) => {
   const newCard = new Card(data);
   newCard.save()
   .then(card => res.status(201).json(card))
-  .catch(error => next(error));
+  .catch(error => next(new ApiError(error.message, 503)));
 };
 
 module.exports.update = (req, res, next) => {
